@@ -1,6 +1,3 @@
 # Project exclude paths
 /cmake-build-debug/
-smo.c
-rerfile.txt
-tio.txt
 CMakeLists.txt

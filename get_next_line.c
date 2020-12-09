@@ -6,7 +6,7 @@
 /*   By: desausag <desausag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 14:56:10 by desausag          #+#    #+#             */
-/*   Updated: 2020/12/08 14:56:36 by desausag         ###   ########.fr       */
+/*   Updated: 2020/12/09 14:06:39 by desausag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		get_next_line(int fd, char **line)
 	char		*tmp;
 	static char	*reminder;
 
-	if (read(fd, NULL, 0) == -1 || !*line || BUFFER_SIZE < 1)
+	if ((read(fd, NULL, 0) == -1) || BUFFER_SIZE < 1)
 		return (-1);
 	p_b = rd_reminder(line, reminder);
 	while ((!p_b && (rc = read(fd, buf, BUFFER_SIZE))))
@@ -65,5 +65,5 @@ int		get_next_line(int fd, char **line)
 		*line = ft_strjoin(*line, buf);
 		free(tmp);
 	}
-	return ((rc || ft_strlen(reminder)) ? 1 : 0);
+	return ((rc || ft_strlen(reminder) || p_b) ? 1 : 0);
 }

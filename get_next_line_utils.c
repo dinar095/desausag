@@ -6,11 +6,23 @@
 /*   By: desausag <desausag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 13:46:59 by desausag          #+#    #+#             */
-/*   Updated: 2020/12/08 14:58:07 by desausag         ###   ########.fr       */
+/*   Updated: 2020/12/09 13:23:51 by desausag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+size_t	ft_strlen(const char *src)
+{
+	int i;
+
+	i = 0;
+	if (!src)
+		return (0);
+	while (src[i] != '\0')
+		i++;
+	return (i);
+}
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -33,7 +45,7 @@ char	*ft_strdup(const char *str)
 	int		i;
 	char	*p;
 
-	i = ft_strlen(str) + 1;
+	i = (int)ft_strlen(str) + 1;
 	if (!(p = (char*)malloc(sizeof(char) * (i))))
 		return (NULL);
 	ft_memcpy(p, str, i);
@@ -50,18 +62,6 @@ char	*ft_strchr(const char *s, int c)
 	if (s[i] == (char)c)
 		return ((char *)(s + i));
 	return (NULL);
-}
-
-size_t	ft_strlen(const char *src)
-{
-	int i;
-
-	i = 0;
-	if (!src)
-		return (0);
-	while (src[i] != '\0')
-		i++;
-	return (i);
 }
 
 void	*ft_memcpy(void *destination, const void *source, size_t n)
