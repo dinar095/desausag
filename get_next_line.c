@@ -1,16 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: desausag <desausag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/08 14:56:10 by desausag          #+#    #+#             */
-/*   Updated: 2020/12/09 14:06:39 by desausag         ###   ########.fr       */
+/*   Created: 2021/01/18 17:54:45 by desausag          #+#    #+#             */
+/*   Updated: 2021/01/18 17:59:43 by desausag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+int		ft_free(char **str)
+{
+	if (*str)
+	{
+		free(*str);
+		*str = NULL;
+	}
+	return (0);
+}
 
 char	*rd_reminder(char **line, char *reminder)
 {
@@ -47,7 +57,7 @@ int		get_next_line(int fd, char **line)
 	char		*tmp;
 	static char	*reminder;
 
-	if ((read(fd, NULL, 0) == -1) || BUFFER_SIZE < 1)
+	if ((read(fd, NULL, 0) == -1) || BUFFER_SIZE < 1 || !line)
 		return (-1);
 	p_b = rd_reminder(line, reminder);
 	while ((!p_b && (rc = read(fd, buf, BUFFER_SIZE))))
@@ -65,5 +75,5 @@ int		get_next_line(int fd, char **line)
 		*line = ft_strjoin(*line, buf);
 		free(tmp);
 	}
-	return ((rc || ft_strlen(reminder) || p_b) ? 1 : 0);
+	return ((rc || ft_strlen(reminder) || p_b) ? 1 : ft_free(&reminder));
 }
